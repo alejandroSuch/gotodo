@@ -16,3 +16,24 @@ type Todo struct {
 	Description string
 	Status      TodoStatus
 }
+
+type Todos []Todo
+
+func (t Todos) Has(id string) bool {
+	for _, it := range t {
+		if it.ID == id {
+			return true
+		}
+	}
+
+	return false
+}
+
+func (t Todos) Complete(id string) {
+	for i, it := range t {
+		if it.ID == id {
+			t[i].Status = TodoStatusCompleted
+			return
+		}
+	}
+}

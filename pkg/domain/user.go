@@ -10,7 +10,7 @@ type User struct {
 	ID     string
 	AuthId string
 	Name   string
-	Todos  []Todo
+	Todos  Todos
 }
 
 func (u *User) AddTodo(description string) {
@@ -18,13 +18,17 @@ func (u *User) AddTodo(description string) {
 }
 
 func (u *User) CompleteTodo(id string) error {
+	if !u.Todos.Has(id) {
+		return ErrTodoNotFound
+	}
+
 	for i, todo := range u.Todos {
 		if todo.ID == id {
 			u.Todos[i].Status = TodoStatusCompleted
 		}
 	}
 
-	return ErrTodoNotFound
+	return nil
 }
 
 func NewUser(id string, authId string, name string) User {
