@@ -1,4 +1,8 @@
 
+.PHONY: test
+test: prepare
+	go test ./...
+
 .PHONY: prepare
 prepare:
 	go fmt ./...

@@ -17,6 +17,10 @@ type Todo struct {
 	Status      TodoStatus
 }
 
+func (t *Todo) Complete() {
+	t.Status = TodoStatusCompleted
+}
+
 type Todos []Todo
 
 func (t Todos) Has(id string) bool {
@@ -30,9 +34,9 @@ func (t Todos) Has(id string) bool {
 }
 
 func (t Todos) Complete(id string) {
-	for i, it := range t {
+	for _, it := range t {
 		if it.ID == id {
-			t[i].Status = TodoStatusCompleted
+			it.Complete()
 			return
 		}
 	}
